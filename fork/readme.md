@@ -1,2 +1,2 @@
 Fork() call using C programmin in linux
-![](img/fork_call/png)
+![](img/fork_call.png)
