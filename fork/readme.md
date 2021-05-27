@@ -14,6 +14,51 @@ It returns an integer value but dosent take any argument.
 **Positive value:** Returned to parent or caller.
 **Zero:** Returned to newly created child process.
 
+## Read the man page of Fork
+
+```
+man fork
+
+NAME
+       fork, wait, waitpid - basic process management
+
+SYNOPSIS
+       @load "fork"
+
+       pid = fork()
+
+       ret = waitpid(pid)
+
+       ret = wait();
+
+DESCRIPTION
+       The fork extension adds three functions, as follows.
+
+       fork() This  function  creates  a new process. The return value is the zero in the child and the process-id number of the child in the parent, or -1 upon error. In the latter case, ERRNO indicates the problem.  In the child,
+              PROCINFO["pid"] and PROCINFO["ppid"] are updated to reflect the correct values.
+
+       waitpid()
+              This function takes a numeric argument, which is the process-id to wait for. The return value is that of the waitpid(2) system call.
+
+       wait() This function waits for the first child to die.  The return value is that of the wait(2) system call.
+
+BUGS
+       There is no corresponding exec() function.
+
+       The interfaces could be enhanced to provide more facilities, including pulling out the various bits of the return status.
+
+EXAMPLE
+       @load "fork"
+       ...
+       if ((pid = fork()) == 0)
+           print "hello from the child"
+       else
+           print "hello from the parent"
+
+
+   
+```
+
 ###### Properties of Child Process
 
 The following are some of the properties that a child process holds:
@@ -26,16 +71,37 @@ The following are some of the properties that a child process holds:
     6. Similarly open directory streams will be inherited by the child processes.
     7. The default Timer slack value of the child class is same as the current timer slack value of parent class.
 
-##Fork() in C-Programming
+## Fork() in C-Programming
 
-Following headers need to be included:
+    Following headers need to be included:
+    ```
+    include <stdio.h>
+    include <sys/types.h>
+    include <unistd.h>
+
+    ```
+    When working with fork(), <sys/types.h> can be used for type pid_t for processes ID’s as pid_t is defined in <sys/types.h>.
+
+    The header file <unistd.h> is where fork() is defined so you have to include it to your program to use fork().
+
+    The return type is defined in <sys/types.h> and fork() call is defined in <unistd.h>. Therefore, you need to include both in your program to use fork() system call.
+
+   
 ```
-include <stdio.h>
-include <sys/types.h>
-include <unistd.h>
+#include <stdio.h>
+#include<sys/types.h> //used for process id
+#include<unistd.h> //fork call is defined here
+void main(){
+fork();
+printf("Demonstration of fork()  call");
+}	
 
 ```
+**NOTE:Use gcc compiler to compiler the program**
+#### Output
+![](img/fork_eg1)
 
+We can observe the fork call. The printf function runs twice once in the parent process and once in the child process.
 
 
 
