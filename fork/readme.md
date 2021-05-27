@@ -100,7 +100,7 @@ printf("Demonstration of fork()  call");
 **NOTE:Use gcc compiler to compiler the program**
 #### Output
 
-![](img/fork_eg1.png)
+![](img/fork_eg1.PNG)
 
 We can observe the fork call. The printf function runs twice once in the parent process and once in the child process.
 
