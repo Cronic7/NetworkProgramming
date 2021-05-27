@@ -73,18 +73,15 @@ The following are some of the properties that a child process holds:
 
 ## Fork() in C-Programming
 
-    Following headers need to be included:
-    ```
-    include <stdio.h>
-    include <sys/types.h>
-    include <unistd.h>
-
-    ```
-    When working with fork(), <sys/types.h> can be used for type pid_t for processes ID’s as pid_t is defined in <sys/types.h>.
-
-    The header file <unistd.h> is where fork() is defined so you have to include it to your program to use fork().
-
-    The return type is defined in <sys/types.h> and fork() call is defined in <unistd.h>. Therefore, you need to include both in your program to use fork() system call.
+Following headers need to be included:
+```
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+ ```
+When working with fork(), <sys/types.h> can be used for type pid_t for processes ID’s as pid_t is defined in <sys/types.h>.
+The header file <unistd.h> is where fork() is defined so you have to include it to your program to use fork().
+The return type is defined in <sys/types.h> and fork() call is defined in <unistd.h>. Therefore, you need to include both in your program to use fork() system call.
 
    
 ```
