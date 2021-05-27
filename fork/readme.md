@@ -7,7 +7,9 @@ The child process is exactly the same as its parent but there is difference in t
 
 
 ![](img/fork_call.png)
+
 It returns an integer value but dosent take any argument.
+
 **Negative value:** If child process creation was unsucessful.
 **Positive value:** Returned to parent or caller.
 **Zero:** Returned to newly created child process.
@@ -23,6 +25,17 @@ The following are some of the properties that a child process holds:
     5. The open message queue descriptors of parent process are inherited by the child process. For example if a file descriptor contains a message in parent process the same message will be present in the corresponding file descriptor of child process. So we can say that the flag values of these file descriptors are same.
     6. Similarly open directory streams will be inherited by the child processes.
     7. The default Timer slack value of the child class is same as the current timer slack value of parent class.
+
+##Fork() in C-Programming
+
+Following headers need to be included:
+```
+include <stdio.h>
+include <sys/types.h>
+include <unistd.h>
+
+```
+
 
 
 
