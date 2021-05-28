@@ -83,7 +83,9 @@ When working with fork(), <sys/types.h> can be used for type pid_t for processes
 The header file <unistd.h> is where fork() is defined so you have to include it to your program to use fork().
 The return type is defined in <sys/types.h> and fork() call is defined in <unistd.h>. Therefore, you need to include both in your program to use fork() system call.
 
-   
+#### Example 1: Fork call 
+
+**Source Code**   
 ```
 #include <stdio.h>
 #include<sys/types.h> //used for process id
@@ -95,11 +97,61 @@ printf("Demonstration of fork()  call");
 
 ```
 **NOTE:Use gcc compiler to compiler the program**
-#### Output
+### Output
 
 ![](img/fork_eg1.PNG)
 
 We can observe the fork call. The printf function runs twice once in the parent process and once in the child process.
+
+#### Example 2: Fork call with process id
+**Source Code**
+```
+#include<stdio.h>
+#include<sys/types.h>
+#include<unistd.h>
+void main(){
+int id=fork();
+if(id==0){
+printf("This is child process with process id:%d \n",getpid());
+}else{
+printf("This is parent process with process id:%d \n",getpid());
+}
+}
+```
+**getpid()**return the process id of the calling process
+**getppid()**returns the parent process id
+
+### Output
+
+![](img/fork_eg2.png)
+
+we can see that getpid() function returns the process id of the calling process.
+
+
+#### Example 3: Multiple fork call
+
+When a child process is created,both parent process and child process will point to the next instruction(same program counter). In this way teh remaning instruction are executed 2^n times where n=number of fork calls.
+lets assume 3 fork() calls then,
+the number of process generated = 2^3 = 8 process
+**Source Code**
+```
+#include<stdio.h>
+#include<sys/types.h>
+#include<unistd.h>
+void main(){
+fork();
+fork();
+fork();
+printf("Parent process id:%d,Child process id:%d \n",getppid(),getpid());
+
+}
+```
+### Output
+
+![](img/fork_eg3.png)
+
+Total 8 poocess were created.
+
 
 
 
