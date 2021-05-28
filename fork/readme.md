@@ -150,9 +150,32 @@ printf("Parent process id:%d,Child process id:%d \n",getppid(),getpid());
 
 ![](img/fork_eg3.png)
 
-Total 8 poocess were created.
+Total 8 process were created.
 
+#### Example 4:Spawning any number of porcess
+As we have seen avobe fork() creates 2^n number of process where n=number of fork().So what do you do when you want to spawn odd number of process lets say 3 process.If you use one fork()then it will create two process(2^1=2) and if you use two fork() then it will create four process(2^2=4).We know that when a child process is spawnet it returns zero value ,we can use if else loop to create three process as shown below.
+**Source code**
+```
+//Spawn 3 process
+#include<stdio.h>
+#include<sys/types.h>
+#include<unistd.h>
+void main(){
+int id=fork();
+if(id==0){
+printf("Process is spawned with process id:%d \n",getpid());
+}else{
+fork();
+printf("Process is spawned with process id:%d \n" ,getpid());
 
+}
+}
+```
+The avobe code works by checking if it is child process or parent process.If it is parent process then we use fork() once more creating total of 3 process.
+
+#### Output
+
+![](img/fork_eg4.png)
 
 
 
