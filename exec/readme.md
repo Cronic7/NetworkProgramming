@@ -25,14 +25,14 @@ Avobe functions have same base as exec with some extra letters having these func
 
 **l**: It is used for passing a list to the functions. 
 
-###Inner working of exec
+### Inner working of exec
 1. Current process image is overwritten with new process image.
 2. New process image is the one you passed as exec argument.
 3. The current running process is ended.
 4. The new process image has the same PID, environment, file descriptor.
 5. The cpu stat and virtual memory is affected. Virtual memory maping of current process image is replaced by virtual memory of new process image.
 
-###Syntax of exec family of functions:
+### Syntax of exec family of functions:
 
 The following are the syntax:
 
@@ -62,5 +62,41 @@ The return type of this function is int.when the process image is sucessfully re
 6. The functions of exec call that end with e are used to change the environment for the new process image. These functions pass list of environment setting by using the argument envp. This argument is an array of characters which points to null terminated String and defines environment variable.
 
 
-####Example 1: Using exec system call in c programming
+#### Example 1: Using exec system call in c programming
+
+##### exec_caller.c
+```
+#include<stdio.h>
+#include<unistd.h> //This header file includes exec calls
+#include<stdlib.h>
+int main (int argc, char *argv[]){
+printf("The process id of the caller is %d\n",getpid());
+char *args[]={"./exec_called",NULL};
+execv(args[0],args);
+printf("Exec system call have been executed");//this will not execute
+return 0;
+}
+```
+
+##### exec_called.c
+```
+#include<stdio.h>
+#include<unistd.h> //This header file includes exec calls
+#include<stdlib.h>
+int main (int argc, char *argv[]){
+printf("This is a statement from the called process\n");
+printf("The process id of the called is %d",getpid());
+return 0;
+}
+```
+**OUTPUT**
+![](img/exec_eg1.PNG)
+
+In the above example we have an exec_caller.c file and exec_called.c file. In the exec_caller.c file first of all we have printed the ID of the current process . Then in the next line we have created an array of character pointers(char *args[]={"./exec_called",NULL};). The last element of this array should be NULL as the terminating point.
+
+Then we have used the function execv() which takes the file name and the character pointer array as its argument. It should be noted here that we have used ./ with the name of file, it specifies the path of the file. As the file is in the folder where exec_caller.c resides so there is no need to specify the full path.
+
+When execv() function is called, our process image will be replaced now the file exec_caller.c is not in the process but the file exec_called.c is in the process. It can be seen that the process ID is same whether exec_caller.c is process image or exec_called.c is process image because process is same and process image is only replaced.
+
+Then we have another thing to note here which is the printf() statement after execv() is not executed. This is because control is never returned back to old process image once new process image replaces it. The control only comes back to calling function when replacing process image is unsuccessful. (The return value is -1 in this case).
 
