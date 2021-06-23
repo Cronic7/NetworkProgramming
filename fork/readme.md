@@ -1,5 +1,5 @@
 # Fork System Call
-Fork system call is used for creating child process the runs cocurently with the parent process.After a new child process is created, both processes will execute the next instruction following the fork() system call. A child process uses the same pc(program counter), same CPU registers, same open files which use in the parent process.
+Fork system call is used for creating child process that runs concurently with the parent process.After a new child process is created, both processes will execute the next instruction following the fork() system call. A child process uses the same pc(program counter), same CPU registers, same open files which use in the parent process.
 The child process is exactly the same as its parent but there is difference in the processes ID’s:
 
    * The process ID of the child process is a unique process ID which is different from the ID’s of all other existing processes.
@@ -11,7 +11,9 @@ The child process is exactly the same as its parent but there is difference in t
 It returns an integer value but dosent take any argument.
 
 **Negative value:** If child process creation was unsucessful.
+
 **Positive value:** Returned to parent or caller.
+
 **Zero:** Returned to newly created child process.
 
 ## Read the man page of Fork
